@@ -37,7 +37,7 @@ curl $url/spec/specs.js > ./spec/specs.js
 
 curl $url/spec/spec-runner.html > ./spec/spec-runner.html
 
-curl $url/js/script.js > ./js/script.js
+curl $url/js/script.js > ./js/scripts.js
 curl $url/css/styles.css > ./css/styles.css
 curl $url/sample.html > ./sample.html
 curl $url/server.sh > ./server.sh
