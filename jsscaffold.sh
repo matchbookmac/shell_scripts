@@ -26,7 +26,7 @@ url=http://iancmacdonald.com/scaffolds/js/
 echo ''
 echo 'downloading scaffolding files'
 #Files
-curl http://code.jquery.com/jquery-1.11.3.js > ./js/lib/jquery-1.11.3.js
+curl http://code.jquery.com/jquery-2.1.4.min.js > ./js/lib/jquery.js
 # normalize is similar to bootstrap
 # curl normalize-css.googlecode.com/svn/trunk/normalize.css > ./css/lib/normalize.css
 curl chaijs.com/chai.js > ./spec/chai.js
