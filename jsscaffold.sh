@@ -53,6 +53,7 @@ git init .
 git config user.name Ian MacDonald
 git config user.email ian@iancmacdonald.com
 git add .
+git commit -m "Initialize files and directories with boiler plate."
 
 echo ''
 echo "trying to set up git pair.. (package dependant)"
