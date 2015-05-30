@@ -10,7 +10,12 @@ fi
 projname=$1
 echo ''
 echo "Setting up project '$projname'"..
-cd ~/Sites
+if [ $USER != Guest ]
+then
+  cd ~/Sites
+else
+  cd ~/Desktop
+fi
 mkdir $projname
 cd $projname
 mkdir config db lib public public/css public/img public/js spec views
@@ -32,11 +37,14 @@ curl http://code.jquery.com/jquery-2.1.4.min.js > ./public/js/jquery.js
 # curl normalize-css.googlecode.com/svn/trunk/normalize.css > ./css/lib/normalize.css
 
 curl chaijs.com/chai.js > ./spec/chai.js
-curl $jsurl/spec/mocha.css > ./spec/mocha.css
-curl $jsurl/spec/mocha.js > ./spec/mocha.js
+curl https://raw.githubusercontent.com/mochajs/mocha/master/mocha.css > ./spec/mocha.css
+curl https://raw.githubusercontent.com/mochajs/mocha/master/lib/mocha.js > ./spec/mocha.js
+# Use below if mocha above doesn't download
+# curl $jsurl/spec/mocha.js > ./spec/mocha.js
+# curl $jsurl/spec/mocha.css > ./spec/mocha.css
 curl $jsurl/spec/specs.js > ./spec/specs.js
 curl $jsurl/spec/spec-runner.html > ./spec/spec-runner.html
-curl $jsurl/js/scripts.js > ./js/scripts.js
+curl $jsurl/js/scripts.js > ./public/js/scripts.js
 
 curl $jsurl/server.sh > ./server.sh
 
@@ -60,7 +68,8 @@ curl $url/Rakefile > ./Rakefile
 
 chmod +x server.sh
 
-mv ./sample.html ./$projname.html
+# INSTALL GEMS
+bundle install
 
 # GIT
 echo ''
@@ -90,13 +99,45 @@ while true; do
   esac
 done
 
+# RUN TESTS
+rspec
+
 echo ''
 here=$(pwd)
 echo "$projname set up in: $here"
 echo ''
 
-# START PROJECT IN ATOM
+# START PROJECT IN ATOM AND BROWSER
+while true; do
+  echo ''
+  echo "Start project in Atom?"
+  read -p "y/n? " yn
+  echo
+  case $yn in
+    [Yy]* )
+      atom .
+      break;;
+    [Nn]* )
+      break;;
+    * )
+      echo "y/n? ";;
+  esac
+done
 
-atom .
+while true; do
+  echo ''
+  echo "Start Sinatra server?"
+  read -p "y/n? " yn
+  echo
+  case $yn in
+    [Yy]* )
+      ruby app.rb
+      break;;
+    [Nn]* )
+      break;;
+    * )
+      echo "y/n? ";;
+  esac
+done
 
 exit 1
