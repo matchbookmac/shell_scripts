@@ -48,7 +48,9 @@ curl https://raw.githubusercontent.com/mochajs/mocha/master/mocha.js > ./spec/mo
 
 echo 'js specs'
 curl $jsurl/spec/specs.js > ./spec/specs.js
-curl $jsurl/spec/spec-runner.html > ./spec/spec-runner.html
+curl $url/spec/spec-runner.html > ./spec/spec-runner.html
+
+echo 'js'
 curl $jsurl/js/scripts.js > ./public/js/scripts.js
 
 echo 'config'
@@ -144,6 +146,7 @@ while true; do
   echo
   case $yn in
     [Yy]* )
+      open http://localhost:4567/
       ruby app.rb
       break;;
     [Nn]* )
