@@ -10,7 +10,12 @@ fi
 projname=$1
 echo ''
 echo "Setting up project '$projname'"..
-cd ~/Sites
+if [ $USER != Guest ]
+then
+  cd ~/Sites
+else
+  cd ~/Desktop
+fi
 mkdir $projname
 cd $projname
 mkdir js img css js/lib css/lib spec
@@ -21,22 +26,30 @@ echo "downloading template README.md"
 curl https://gist.githubusercontent.com/matchbookmac/e246837a98022bd38ed3/raw/f3236243771a998bd77098f77b4d2cdb9adbc282/README.md > ./README.md
 
 # CURL BASE URL
-url=http://iancmacdonald.com/scaffolds/js/
+url=http://iancmacdonald.com/scaffolds/js
 
 echo ''
 echo 'downloading scaffolding files'
 #Files
+echo 'jQuery'
 curl http://code.jquery.com/jquery-2.1.4.min.js > ./js/lib/jquery.js
 # normalize is similar to bootstrap
 # curl normalize-css.googlecode.com/svn/trunk/normalize.css > ./css/lib/normalize.css
+echo 'chai and mocha'
 curl chaijs.com/chai.js > ./spec/chai.js
 
-curl $url/spec/mocha.css > ./spec/mocha.css
-curl $url/spec/mocha.js > ./spec/mocha.js
+curl https://raw.githubusercontent.com/mochajs/mocha/master/mocha.css > ./spec/mocha.css
+curl https://raw.githubusercontent.com/mochajs/mocha/master/mocha.js > ./spec/mocha.js
+
+# Use below if mocha above doesn't download
+# curl $jsurl/spec/mocha.js > ./spec/mocha.js
+# curl $jsurl/spec/mocha.css > ./spec/mocha.csscurl
+echo 'js specs'
 curl $url/spec/specs.js > ./spec/specs.js
 
 curl $url/spec/spec-runner.html > ./spec/spec-runner.html
 
+echo 'scripts, styles, and config'
 curl $url/js/scripts.js > ./js/scripts.js
 curl $url/css/styles.css > ./css/styles.css
 curl $url/sample.html > ./sample.html
@@ -79,8 +92,26 @@ here=$(pwd)
 echo "$projname set up in: $here"
 echo ''
 
-# START PROJECT IN ATOM
 
-atom .
+# START PROJECT IN ATOM AND BROWSER
+while true; do
+  echo ''
+  echo "Start project in Atom?"
+  read -p "y/n? " yn
+  echo
+  case $yn in
+    [Yy]* )
+      atom .
+      break;;
+    [Nn]* )
+      break;;
+    * )
+      echo "y/n? ";;
+  esac
+done
+
+# OPEN TEST WEBPAGES
+open $projname.html
+open spec/spec-runner.html
 
 exit 1

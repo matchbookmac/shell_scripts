@@ -32,35 +32,45 @@ jsurl=http://iancmacdonald.com/scaffolds/js/
 echo ''
 echo 'downloading scaffolding files'
 #Files
+echo 'jQuery'
 curl http://code.jquery.com/jquery-2.1.4.min.js > ./public/js/jquery.js
 # normalize is similar to bootstrap
 # curl normalize-css.googlecode.com/svn/trunk/normalize.css > ./css/lib/normalize.css
 
+echo 'chai and mocha'
 curl chaijs.com/chai.js > ./spec/chai.js
 curl https://raw.githubusercontent.com/mochajs/mocha/master/mocha.css > ./spec/mocha.css
-curl https://raw.githubusercontent.com/mochajs/mocha/master/lib/mocha.js > ./spec/mocha.js
+curl https://raw.githubusercontent.com/mochajs/mocha/master/mocha.js > ./spec/mocha.js
+
 # Use below if mocha above doesn't download
 # curl $jsurl/spec/mocha.js > ./spec/mocha.js
 # curl $jsurl/spec/mocha.css > ./spec/mocha.css
+
+echo 'js specs'
 curl $jsurl/spec/specs.js > ./spec/specs.js
 curl $jsurl/spec/spec-runner.html > ./spec/spec-runner.html
 curl $jsurl/js/scripts.js > ./public/js/scripts.js
 
+echo 'config'
 curl $jsurl/server.sh > ./server.sh
 
 curl $url/config/database.yml > ./config/database.yml
 
+echo 'styles'
 curl $url/public/css/styles.css > ./public/css/styles.css
 
+echo 'ruby specs'
 curl $url/lib/test.rb > ./lib/test.rb
 curl $url/spec/test_spec.rb > ./spec/test_spec.rb
 curl $url/spec/spec_helper.rb > ./spec/spec_helper.rb
 curl $url/spec/integration_spec.rb > ./spec/integration_spec.rb
 
+echo 'views'
 curl $url/views/index.erb > ./views/index.erb
 curl $url/views/layout.erb > ./views/layout.erb
 curl $url/views/test.erb > ./views/test.erb
 
+echo 'app'
 curl $url/app.rb > ./app.rb
 curl $url/config.ru > ./config.ru
 curl $url/Gemfile > ./Gemfile
@@ -124,6 +134,9 @@ while true; do
   esac
 done
 
+# OPEN JS TEST WEBPAGE
+open spec/spec-runner.html
+
 while true; do
   echo ''
   echo "Start Sinatra server?"
@@ -139,5 +152,6 @@ while true; do
       echo "y/n? ";;
   esac
 done
+
 
 exit 1
