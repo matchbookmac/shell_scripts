@@ -60,14 +60,14 @@ chmod +x server.sh
 mv ./sample.html ./$projname.html
 
 # PAIRING
-pairing=false
+pairing_today=false
 while true; do
   echo ''
   echo "Are you pairing today?"
   read -p "y/n? " yn
   echo
   case $yn in
-    [Yy]* ) pairing=true
+    [Yy]* ) pairing_today=true
             read -p "Pair first name: " pair_first_name
             read -p "Pair last name: " pair_last_name
             read -p "Pair initials: " pair_init
@@ -79,7 +79,7 @@ while true; do
   esac
 done
 
-if [ $pairing == true ]
+if [ $pairing_today == true ]
 then
   echo ''
   echo "trying to set up git pair.. (package dependant)"
@@ -107,7 +107,7 @@ while true; do
   case $yn in
     [Yy]* ) curl -u matchbookmac https://api.github.com/user/repos -d '{"name":"'$projname'"}'
             git remote add ian https://github.com/matchbookmac/$projname
-            if [ $pairing == true ]; then
+            if [ $pairing_today == true ]; then
               curl -u $pair_user https://api.github.com/user/repos -d '{"name":"'$projname'"}'
               git remote add ian https://github.com/$pair_user/$projname
             fi
