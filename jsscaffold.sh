@@ -79,23 +79,24 @@ while true; do
   esac
 done
 
+# GIT AND PAIRING
+echo ''
+echo "setting up Git.."
+git init .
+git add .
+
 if [ $pairing_today == true ]
 then
   echo ''
   echo "trying to set up git pair.. (package dependant)"
   git pair add im Ian MacDonald
-  git pair add $pair_init $pair_name
+  git pair add $pair_init $pair_first_name $pair_last_name
   git pair im $pair_init
 else
   git config user.name Ian MacDonald
   git config user.email ian@iancmacdonald.com
 fi
 
-# GIT
-echo ''
-echo "setting up Git.."
-git init .
-git add .
 git commit -m "Initialize files and directories with boiler plate."
 
 # GIT REMOTE REPO
