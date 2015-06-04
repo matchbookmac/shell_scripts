@@ -24,14 +24,15 @@ This app was written in `shell`.
 
 ```console
 > curl https://raw.githubusercontent.com/matchbookmac/shell_scripts/master/setup.sh > ~/setup.sh
+> chmod +x ~/setup.sh
+> ~/setup.sh
+> source ~/.bash_profile
 ```
 
 You can also clone this repo with:
 ```console
 > git clone https://github.com/matchbookmac/shell_scripts.git
-> chmod +x ~/setup.sh
-> ~/setup.sh
-> source ~/.bash_profile
+
 ```
 
 Start App:
