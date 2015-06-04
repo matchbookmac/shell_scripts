@@ -110,7 +110,7 @@ while true; do
             git remote add ian https://github.com/matchbookmac/$projname
             if [ $pairing_today == true ]; then
               curl -u $pair_user https://api.github.com/user/repos -d '{"name":"'$projname'"}'
-              git remote add ian https://github.com/$pair_user/$projname
+              git remote add $pair_first_name https://github.com/$pair_user/$projname
             fi
             break;;
     [Nn]* ) break;;
