@@ -2,6 +2,13 @@
 
 cd ~
 
+if [ $USER != Guest ]
+then
+  remote=true
+else
+  remote=false
+fi
+
 echo ''
 echo "Setting up vimrc"
 curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/.vimrc >> ~/.vimrc
@@ -11,6 +18,10 @@ echo "Setting up bash_profile"
 curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/.bash_profile >> ~/.bash_profile
 source ~/.bash_profile
 
+echo ''
+echo "Setting up Chrome"
+curl https://raw.githubusercontent.com/matchbookmac/shell_scripts/master/Bookmarks >> ~/Library/Application\ Support/Google/Chrome/Default/Bookmarks
+curl https://github.com/matchbookmac/shell_scripts/blob/master/Preferences > ~/Library/Application\ Support/Google/Chrome/Default/Preferences
 echo ''
 echo "Setting up Atom prefs"
 apm help > test 2>&1
