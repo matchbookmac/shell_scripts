@@ -15,7 +15,7 @@ echo ''
 echo "Setting up Atom prefs"
 apm help > test 2>&1
 apmtest=$(<~/test)
-[[ $vartest =~ 'Atom Package Manager' ]] && installed=true || installed=false
+[[ $apmtest =~ 'Atom Package Manager' ]] && installed=true || installed=false
 rm ~/test
 if [$installed]
 then
