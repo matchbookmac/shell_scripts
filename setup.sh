@@ -17,7 +17,7 @@ apm help > test 2>&1
 apmtest=$(<~/test)
 [[ $apmtest =~ 'Atom Package Manager' ]] && installed=true || installed=false
 rm ~/test
-if [$installed]
+if [ $installed ]
 then
   echo 'atom editor is installed'
   apm install seti-syntax
