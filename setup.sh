@@ -31,11 +31,20 @@ apmtest=$(<~/test)
 rm ~/test
 if [ $installed ]
 then
-  echo 'atom editor is installed'
+  echo 'Atom editor is installed'
+  echo 'Installing packages'
   apm install seti-syntax
   apm install seti-ui
   apm install open-in-browser
   apm install toggle-quotes
+
+  echo 'Adding personal config files'
+  curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/config.cson >> ~/.atom/config.cson
+  curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/init.coffee >> ~/.atom/init.coffee
+  curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/keymap.cson >> ~/.atom/keymap.cson
+  curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/styles.less >> ~/.atom/styles.less
+  curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/snippets.cson >> ~/.atom/snippets.cson
+  
   echo 'atom setup complete'
 else
   echo 'atom editor is not installed'
