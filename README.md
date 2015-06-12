@@ -12,7 +12,21 @@ GNU General Public License, version 3 (see below). Copyright (c) 2015 Ian C. Mac
 
 **Shell Scripts**
 
-bash scripts for automating remote work setup with familiar settings.
+Bash scripts for automating remote work setup with familiar settings.
+
+`setup.sh` will download and setup the local `.bash_profile`, `vim.rc` for vim editor, Atom editor preferences, Chrome, and scaffolding scripts for JS and Ruby. Once the setup is complete, you can run the following commands:
+
+```console
+> jsproj [project name]
+```
+Will setup a JavaScript project in either the `Sites` directory or the `Desktop` directory if you are signed in as 'Guest'
+
+```console
+> rsproj [project name]
+```
+Will do the same thing as above, but for a Ruby project using Sinatra.
+
+`.bash_profile` also contains a number of aliases for git shortcuts and other commonly used commands. Please read through the `.bash_profile` itself to see what they do, as their use is fairly straightforward.
 
 ### Author(s)
 
@@ -29,23 +43,25 @@ This app was written in `shell`.
 > source ~/.bash_profile
 ```
 
-You can also clone this repo with:
+
+Clone These Scripts:
+
 ```console
 > git clone https://github.com/matchbookmac/shell_scripts.git
 
 ```
+To also get the dotfiles that `setup.sh` uses,
+```console
+> git clone https://github.com/matchbookmac/dotfiles.git
 
-Start App:
-
-Navigate to your favorite browser, enter the file > open dialog, open the `*.html*` file in the root directory of the project folder.
-
+```
 
 ### License ###
 Copyright  (C)  2015  Ian C. MacDonald
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or    
+the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
