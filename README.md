@@ -26,7 +26,7 @@ Will setup a JavaScript project in either the `Sites` directory or the `Desktop`
 ```
 Will do the same thing as above, but for a Ruby project using Sinatra.
 
-`.bash_profile` also contains a number of aliases for git shortcuts and other commonly used commands. Please read through the (<a href="https://github.com/matchbookmac/dotfiles/blob/master/.bash_profile" target="#">`.bash_profile`</a>) itself to see what they do, as their use is fairly straightforward.
+`.bash_profile` also contains a number of aliases for git shortcuts and other commonly used commands. Please read through the <a href="https://github.com/matchbookmac/dotfiles/blob/master/.bash_profile" target="#">`.bash_profile`</a> itself to see what they do, as their use is fairly straightforward.
 
 ### Author(s)
 
