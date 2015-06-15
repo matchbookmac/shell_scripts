@@ -7,6 +7,7 @@ then
   remote=true
 else
   remote=false
+  
 fi
 
 echo ''
@@ -25,7 +26,7 @@ curl https://github.com/matchbookmac/shell_scripts/blob/master/Preferences > ~/L
 
 echo ''
 echo "Setting up Atom prefs"
-apm help > test 2>&1
+apm help > ~/test 2>&1
 apmtest=$(<~/test)
 [[ $apmtest =~ 'Atom Package Manager' ]] && installed=true || installed=false
 rm ~/test
