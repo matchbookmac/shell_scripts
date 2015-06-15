@@ -56,8 +56,8 @@ fi
 echo ''
 echo "Pulling down scaffolds and scripts"
 
-git clone https://github.com/matchbookmac/shell_scripts.git
-mv ~/shell_scripts ~/.scripts
+git clone https://github.com/matchbookmac/shell_scripts.git ~/.scripts
+# mv ~/shell_scripts ~/.scripts
 cd ~/.scripts
 rm -rf .git
 chmod +x jsscaffold.sh
