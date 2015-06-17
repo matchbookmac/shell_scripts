@@ -17,7 +17,6 @@ curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/.vimrc >> ~/
 echo ''
 echo "Setting up bash_profile"
 curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/.bash_profile >> ~/.bash_profile
-
 source ~/.bash_profile
 
 echo ''
@@ -62,6 +61,8 @@ cd ~/.scripts
 rm -rf .git
 chmod +x jsscaffold.sh
 chmod +x sinatra_ruby.sh
+chmod +x git_create_repo.sh
+chmod +x ec2clone.sh
 
 echo ''
 echo "Setup complete"
