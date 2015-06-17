@@ -7,7 +7,7 @@ then
   remote=true
 else
   remote=false
-  
+
 fi
 
 echo ''
@@ -17,6 +17,7 @@ curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/.vimrc >> ~/
 echo ''
 echo "Setting up bash_profile"
 curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/.bash_profile >> ~/.bash_profile
+
 source ~/.bash_profile
 
 echo ''
@@ -45,7 +46,7 @@ then
   curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/keymap.cson >> ~/.atom/keymap.cson
   curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/styles.less >> ~/.atom/styles.less
   curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/snippets.cson >> ~/.atom/snippets.cson
-  
+
   echo 'atom setup complete'
 else
   echo 'atom editor is not installed'
