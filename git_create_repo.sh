@@ -23,4 +23,6 @@ while true; do
   esac
 done
 
+#TODO separate out adding remote and adding repo.
+
 exit 1
