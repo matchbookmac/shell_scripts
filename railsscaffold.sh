@@ -11,6 +11,7 @@ else
   cd ~/Desktop
 fi
 
+cd $projname
 url=http://iancmacdonald.com/scaffolds/rails/
 
 # README MD

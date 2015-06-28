@@ -123,7 +123,6 @@ here=$(pwd)
 echo "$projname set up in: $here"
 echo ''
 
-
 # START PROJECT IN ATOM AND BROWSER
 while true; do
   echo ''
