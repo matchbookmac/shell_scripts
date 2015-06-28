@@ -83,18 +83,43 @@ chmod +x server.sh
 # INSTALL GEMS
 bundle install
 
-# GIT
+pairing_today=false
+while true; do
+  echo ''
+  echo "Are you pairing today?"
+  read -p "y/n? " yn
+  echo
+  case $yn in
+    [Yy]* ) pairing_today=true
+            read -p "Pair first name: " pair_first_name
+            read -p "Pair last name: " pair_last_name
+            read -p "Pair initials: " pair_init
+            read -p "Pair Github Username: " pair_user
+            pair_name=$pair_first_name\ $pair_last_name
+            break;;
+    [Nn]* ) break;;
+    * ) echo "y/n? ";;
+  esac
+done
+
+# GIT AND PAIRING
 echo ''
 echo "setting up Git.."
 git init .
+git add .
 git config user.name Ian MacDonald
 git config user.email ian@iancmacdonald.com
-git add .
-git commit -m "Initialize files and directories with boiler plate."
 
-echo ''
-echo "trying to set up git pair.. (package dependant)"
-git pair add im Ian MacDonald
+if [ $pairing_today == true ]
+then
+  echo ''
+  echo "trying to set up git pair.. (package dependant)"
+  git pair add im Ian MacDonald
+  git pair add $pair_init $pair_first_name $pair_last_name
+  git pair im $pair_init
+fi
+
+git commit -m "Initialize files and directories with boiler plate."
 
 # GIT REMOTE REPO
 while true; do
@@ -103,8 +128,12 @@ while true; do
   read -p "y/n? " yn
   echo
   case $yn in
-    [Yy]* ) curl -u matchbookmac https://api.github.com/user/repos -d '{"name":"'$projname'"}';
-            git remote add ian https://github.com/matchbookmac/$projname;
+    [Yy]* ) curl -u matchbookmac https://api.github.com/user/repos -d '{"name":"'$projname'"}'
+            git remote add ian https://github.com/matchbookmac/$projname
+            if [ $pairing_today == true ]; then
+              curl -u $pair_user https://api.github.com/user/repos -d '{"name":"'$projname'"}'
+              git remote add $pair_first_name https://github.com/$pair_user/$projname
+            fi
             break;;
     [Nn]* ) break;;
     * ) echo "y/n? ";;

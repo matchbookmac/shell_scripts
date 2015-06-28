@@ -25,6 +25,14 @@ curl https://raw.githubusercontent.com/matchbookmac/shell_scripts/master/Bookmar
 curl https://github.com/matchbookmac/shell_scripts/blob/master/Preferences > ~/Library/Application\ Support/Google/Chrome/Default/Preferences
 
 echo ''
+echo "Setting up rails"
+echo "-d postgresql -T" >> ~/.railsrc
+
+echo ''
+echo "Setting up gem install"
+echo "gem: --no-ri --no-rdoc" >> ~/.gemrc
+
+echo ''
 echo "Setting up Atom prefs"
 apm help > ~/test 2>&1
 apmtest=$(<~/test)
@@ -60,6 +68,7 @@ git clone https://github.com/matchbookmac/shell_scripts.git ~/.scripts
 cd ~/.scripts
 rm -rf .git
 chmod +x jsscaffold.sh
+chmod +x railsscaffold.sh
 chmod +x sinatra_ruby.sh
 chmod +x git_create_repo.sh
 chmod +x ec2clone.sh
