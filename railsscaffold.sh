@@ -12,7 +12,7 @@ else
 fi
 
 cd $projname
-url=http://iancmacdonald.com/scaffolds/rails/
+url=http://iancmacdonald.com/scaffolds/rails
 
 # README MD
 echo ''
@@ -30,7 +30,14 @@ env ARCHFLAGS='-arch x86_64' bundle install
 
 echo ''
 echo "Using RSpec"
-rails generate rspec:install
+rails g rspec:install
+
+echo ''
+echo "Setting up styling"
+rm app/assets/stylesheets/application.css
+curl $url/application.css.scss > app/assets/stylesheets/application.css.scss
+curl $url/application.js > app/assets/javascripts/application.js
+
 
 # PAIRING
 pairing_today=false
