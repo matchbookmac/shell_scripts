@@ -38,6 +38,9 @@ rm app/assets/stylesheets/application.css
 curl $url/application.css.scss > app/assets/stylesheets/application.css.scss
 curl $url/application.js > app/assets/javascripts/application.js
 
+echo ''
+echo "Creating database"
+rake db:create
 
 # PAIRING
 pairing_today=false
