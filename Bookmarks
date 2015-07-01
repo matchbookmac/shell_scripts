@@ -1,5 +1,5 @@
 {
-   "checksum": "306c32e7dff9504043bc304cc9405e25",
+   "checksum": "b540052d7192528b5d804234c9a2389b",
    "roots": {
       "bookmark_bar": {
          "children": [ {
@@ -8,9 +8,15 @@
             "name": "Table of contents",
             "type": "url",
             "url": "https://www.learnhowtoprogram.com/table-of-contents"
+         }, {
+            "date_added": "13080238128852388",
+            "id": "10",
+            "name": "CSS · Bootstrap",
+            "type": "url",
+            "url": "http://getbootstrap.com/css/"
          } ],
          "date_added": "13078249037068611",
-         "date_modified": "13078251067228926",
+         "date_modified": "13080238128852388",
          "id": "1",
          "name": "Bookmarks Bar",
          "type": "folder"
