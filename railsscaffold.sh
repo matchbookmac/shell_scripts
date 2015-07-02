@@ -39,7 +39,10 @@ curl $url/application.css.scss > app/assets/stylesheets/application.css.scss
 curl $url/application.js > app/assets/javascripts/application.js
 
 echo ''
-echo "Creating database"
+echo "Starting postgres and creating database"
+(
+  postgres
+)
 rake db:create
 
 # PAIRING
@@ -118,6 +121,20 @@ while true; do
 done
 
 # OPEN APP
-open http://localhost:3000
+while true; do
+  echo ''
+  echo "Start project in browser?"
+  read -p "y/n? " yn
+  echo
+  case $yn in
+    [Yy]* )
+      open http://localhost:3000
+      break;;
+    [Nn]* )
+      break;;
+    * )
+      echo "y/n? ";;
+  esac
+done
 
 exit 1
