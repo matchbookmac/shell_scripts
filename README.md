@@ -42,6 +42,10 @@ This app was written in `shell`.
 > ~/setup.sh
 > source ~/.bash_profile
 ```
+OR
+```console
+> curl https://raw.githubusercontent.com/matchbookmac/shell_scripts/master/setup.sh > ~/setup.sh && chmod +x ~/setup.sh &&  ~/setup.sh && source ~/.bash_profile
+```
 
 
 Clone These Scripts:

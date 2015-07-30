@@ -39,11 +39,15 @@ curl $url/application.css.scss > app/assets/stylesheets/application.css.scss
 curl $url/application.js > app/assets/javascripts/application.js
 
 echo ''
-echo "Starting postgres and creating database"
-(
-  postgres
-)
-rake db:create
+echo "Setting up simple form"
+rails generate simple_form:install --bootstrap
+
+# echo ''
+# echo "Starting postgres and creating database"
+# (
+#   postgres
+# )
+# rake db:create
 
 # PAIRING
 pairing_today=false
