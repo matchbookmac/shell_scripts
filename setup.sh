@@ -46,6 +46,8 @@ then
   apm install seti-ui
   apm install open-in-browser
   apm install toggle-quotes
+  apm install linter
+  apm install linter-jshint
 
   echo 'Adding personal config files'
   curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/config.cson >> ~/.atom/config.cson
