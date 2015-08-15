@@ -42,7 +42,7 @@ if [ $installed ]
 then
   echo 'Atom editor is installed'
   echo 'Installing packages'
-  apm install seti-syntax
+  apm install adventurous-syntax
   apm install seti-ui
   apm install open-in-browser
   apm install toggle-quotes
