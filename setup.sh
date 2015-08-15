@@ -46,6 +46,7 @@ then
   apm install seti-ui
   apm install open-in-browser
   apm install toggle-quotes
+  apm install minimap
   apm install linter
   apm install linter-jshint
 
