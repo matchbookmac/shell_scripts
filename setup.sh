@@ -7,30 +7,41 @@ then
   remote=true
 else
   remote=false
-
 fi
 
-echo ''
-echo "Setting up vimrc"
-curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/.vimrc >> ~/.vimrc
+CODE_REPO="$HOME/code1"
+DOTFILES="$CODE_REPO/dotfiles"
+SETUPFILES="$CODE_REPO/shell_scripts"
 
 echo ''
-echo "Setting up bash_profile"
-curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/.bash_profile >> ~/.bash_profile
-source ~/.bash_profile
+echo "Setting up dev"
+mkdir -p $CODE_REPO
 
 echo ''
-echo "Setting up Chrome"
-curl https://raw.githubusercontent.com/matchbookmac/shell_scripts/master/Bookmarks >> ~/Library/Application\ Support/Google/Chrome/Default/Bookmarks
-curl https://github.com/matchbookmac/shell_scripts/blob/master/Preferences > ~/Library/Application\ Support/Google/Chrome/Default/Preferences
-
-echo ''
-echo "Setting up rails"
+echo "Setting up dotfiles"
+git clone https://github.com/matchbookmac/dotfiles.git "$DOTFILES"
+echo 'bash_profile'
+ln -s "$DOTFILES/.bash_profile" "$HOME/.bash_profile"
+echo 'vimrc'
+ln -s "$DOTFILES/.vimrc" "$HOME/.vimrc"
+echo "railsrc"
 echo "-d postgresql -T" >> ~/.railsrc
+echo "gemrc"
+echo "gem: --no-ri --no-rdoc" >> ~/.gemrc
 
 echo ''
-echo "Setting up gem install"
-echo "gem: --no-ri --no-rdoc" >> ~/.gemrc
+echo 'Install homebrew'
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+echo ''
+echo 'Install jq (JSON parsing on command line)'
+brew install jq
+
+echo ''
+echo 'Install atom'
+curl https://api.github.com/repos/atom/atom/releases/latest | jq '.assets[] | {name: .name, link: .browser_download_url} | select(.name == "atom-mac.zip").link' | xargs wget -P ~/Downloads
+unzip ~/Downloads/atom-mac.zip
+rm ~/Downloads/atom-mac.zip
 
 echo ''
 echo "Setting up Atom prefs"
@@ -51,11 +62,16 @@ then
   apm install linter-jshint
 
   echo 'Adding personal config files'
-  curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/config.cson >> ~/.atom/config.cson
-  curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/init.coffee >> ~/.atom/init.coffee
-  curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/keymap.cson >> ~/.atom/keymap.cson
-  curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/styles.less >> ~/.atom/styles.less
-  curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/snippets.cson >> ~/.atom/snippets.cson
+  # curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/config.cson >> ~/.atom/config.cson
+  ln -s "$DOTFILES/config.cson" "$HOME/.atom/config.cson"
+  # curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/init.coffee >> ~/.atom/init.coffee
+  ln -s "$DOTFILES/init.coffee" "$HOME/.atom/init.coffee"
+  # curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/keymap.cson >> ~/.atom/keymap.cson
+  ln -s "$DOTFILES/keymap.cson" "$HOME/.atom/keymap.cson"
+  # curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/styles.less >> ~/.atom/styles.less
+  ln -s "$DOTFILES/styles.less" "$HOME/.atom/styles.less"
+  # curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/snippets.cson >> ~/.atom/snippets.cson
+  ln -s "$DOTFILES/snippets.cson" "$HOME/.atom/snippets.cson"
 
   echo 'atom setup complete'
 else
@@ -67,9 +83,8 @@ fi
 echo ''
 echo "Pulling down scaffolds and scripts"
 
-git clone https://github.com/matchbookmac/shell_scripts.git ~/.scripts
-cd ~/.scripts
-rm -rf .git
+git clone https://github.com/matchbookmac/shell_scripts.git $SETUPFILES
+cd $SETUPFILES
 chmod +x jsscaffold.sh
 chmod +x railsscaffold.sh
 chmod +x sinatra_ruby.sh
