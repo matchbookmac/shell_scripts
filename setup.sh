@@ -40,7 +40,7 @@ brew install jq
 echo ''
 echo 'Install atom'
 curl https://api.github.com/repos/atom/atom/releases/latest | jq '.assets[] | {name: .name, link: .browser_download_url} | select(.name == "atom-mac.zip").link' | xargs wget -P ~/Downloads
-unzip ~/Downloads/atom-mac.zip
+unzip ~/Downloads/atom-mac.zip -d ~/Applications/
 rm ~/Downloads/atom-mac.zip
 
 echo ''
@@ -81,15 +81,12 @@ fi
 
 
 echo ''
-echo "Pulling down scaffolds and scripts"
-
-git clone https://github.com/matchbookmac/shell_scripts.git $SETUPFILES
-cd $SETUPFILES
-chmod +x jsscaffold.sh
-chmod +x railsscaffold.sh
-chmod +x sinatra_ruby.sh
-chmod +x git_create_repo.sh
-chmod +x ec2clone.sh
+echo "Linking scaffolds and scripts"
+chmod +x "$SETUPFILES/jsscaffold.sh"
+chmod +x "$SETUPFILES/railsscaffold.sh"
+chmod +x "$SETUPFILES/sinatra_ruby.sh"
+chmod +x "$SETUPFILES/git_create_repo.sh"
+chmod +x "$SETUPFILES/ec2clone.sh"
 
 echo ''
 echo "Setup complete"
