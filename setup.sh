@@ -9,7 +9,7 @@ else
   remote=false
 fi
 
-CODE_REPO="$HOME/code1"
+CODE_REPO="$HOME/code"
 DOTFILES="$CODE_REPO/dotfiles"
 SETUPFILES="$CODE_REPO/shell_scripts"
 
@@ -47,10 +47,10 @@ rm ~/Downloads/atom-mac.zip
 
 echo ''
 echo "Setting up Atom prefs"
-apm help > ~/test 2>&1
-apmtest=$(<~/test)
+apm help > ~/atom_installed.txt 2>&1
+apmtest=$(<~/atom_installed.txt)
 [[ $apmtest =~ 'Atom Package Manager' ]] && installed=true || installed=false
-rm ~/test
+rm ~/atom_installed.txt
 if [ $installed ]
 then
   echo 'Atom editor is installed'
@@ -80,7 +80,6 @@ else
   echo 'atom editor is not installed'
   echo 'install at https://github.com/atom/atom/releases/'
 fi
-
 
 echo ''
 echo "Linking scaffolds and scripts"
