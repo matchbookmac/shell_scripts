@@ -24,6 +24,8 @@ echo 'bash_profile'
 ln -s "$DOTFILES/.bash_profile" "$HOME/.bash_profile"
 echo 'vimrc'
 ln -s "$DOTFILES/.vimrc" "$HOME/.vimrc"
+echo 'gitconfig'
+ln -s "$DOTFILES/.gitconfig" "$HOME/.gitconfig"
 echo "railsrc"
 echo "-d postgresql -T" >> ~/.railsrc
 echo "gemrc"
