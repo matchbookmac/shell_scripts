@@ -39,13 +39,13 @@ This app was written in `shell`.
 ```console
 mkdir -p ~/code/
 git clone https://github.com/matchbookmac/shell_scripts.git ~/code/shell_scripts
-chmod +x ~/code/setup.sh
-~/code/setup.sh
+chmod +x ~/code/shell_scripts/setup.sh
+~/code/shell_scripts/setup.sh
 source ~/.bash_profile
 ```
 OR
 ```console
-> curl https://raw.githubusercontent.com/matchbookmac/shell_scripts/master/setup.sh > ~/setup.sh && chmod +x ~/setup.sh &&  ~/setup.sh && source ~/.bash_profile
+mkdir -p ~/code/ && git clone https://github.com/matchbookmac/shell_scripts.git ~/code/shell_scripts && chmod +x ~/code/shell_scripts/setup.sh && ~/code/shell_scripts/setup.sh
 ```
 
 
