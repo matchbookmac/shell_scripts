@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+CODE_REPO="$HOME/code"
+DOTFILES="$CODE_REPO/dotfiles"
+
 apm_installed=false
 while true; do
   printf "Have you installed apm in atom by going to Atom > Install Shell Commands in the menu bar?\n"
