@@ -2,8 +2,7 @@
 
 cd ~
 
-if [ $USER != Guest ]
-then
+if [ $USER != Guest ]; then
   remote=true
 else
   remote=false
@@ -13,84 +12,105 @@ CODE_REPO="$HOME/code"
 DOTFILES="$CODE_REPO/dotfiles"
 SETUPFILES="$CODE_REPO/shell_scripts"
 
-echo ''
-echo "Setting up dev"
+printf "\n************\nSetting up dev\n"
 mkdir -p $CODE_REPO
 
-echo ''
-echo "Setting up dotfiles"
-git clone https://github.com/matchbookmac/dotfiles.git "$DOTFILES"
-echo 'bash_profile'
-ln -s "$DOTFILES/.bash_profile" "$HOME/.bash_profile"
-echo 'vimrc'
-ln -s "$DOTFILES/.vimrc" "$HOME/.vimrc"
-echo 'gitconfig'
-ln -s "$DOTFILES/.gitconfig" "$HOME/.gitconfig"
-echo "railsrc"
-echo "-d postgresql -T" >> ~/.railsrc
-echo "gemrc"
-echo "gem: --no-ri --no-rdoc" >> ~/.gemrc
+function prompt ()
+{
+  choice=false
+  while true; do
+    read -p "y/n? " yn
+    case $yn in
+      [Yy]* ) choice=true
+              break;;
+      [Nn]* ) break;;
+      * ) echo "y/n? ";;
+    esac
+  done
+}
 
-echo ''
-echo 'Install homebrew'
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+printf "Are you sure you want to append to the existing dotfiles on your sytem?\n"
+prompt
+link_dotfiles=$choice
 
-echo ''
-echo 'Install jq (JSON parsing on command line)'
-brew install jq
-
-echo ''
-echo 'Install atom'
-curl https://api.github.com/repos/atom/atom/releases/latest | jq '.assets[] | {name: .name, link: .browser_download_url} | select(.name == "atom-mac.zip").link' | xargs wget -P ~/Downloads
-unzip ~/Downloads/atom-mac.zip -d ~/Applications/
-rm ~/Downloads/atom-mac.zip
-
-echo ''
-echo "Setting up Atom prefs"
-apm help > ~/atom_installed.txt 2>&1
-apmtest=$(<~/atom_installed.txt)
-[[ $apmtest =~ 'Atom Package Manager' ]] && installed=true || installed=false
-rm ~/atom_installed.txt
-if [ $installed ]
-then
-  echo 'Atom editor is installed'
-  echo 'Installing packages'
-  apm install adventurous-syntax
-  apm install seti-ui
-  apm install open-in-browser
-  apm install toggle-quotes
-  apm install minimap
-  apm install linter
-  apm install linter-jshint
-
-  echo 'Adding personal config files'
-  # curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/config.cson >> ~/.atom/config.cson
-  ln -s "$DOTFILES/config.cson" "$HOME/.atom/config.cson"
-  # curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/init.coffee >> ~/.atom/init.coffee
-  ln -s "$DOTFILES/init.coffee" "$HOME/.atom/init.coffee"
-  # curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/keymap.cson >> ~/.atom/keymap.cson
-  ln -s "$DOTFILES/keymap.cson" "$HOME/.atom/keymap.cson"
-  # curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/styles.less >> ~/.atom/styles.less
-  ln -s "$DOTFILES/styles.less" "$HOME/.atom/styles.less"
-  # curl https://raw.githubusercontent.com/matchbookmac/dotfiles/master/snippets.cson >> ~/.atom/snippets.cson
-  ln -s "$DOTFILES/snippets.cson" "$HOME/.atom/snippets.cson"
-
-  echo 'atom setup complete'
-else
-  echo 'atom editor is not installed'
-  echo 'install at https://github.com/atom/atom/releases/'
+if [ $link_dotfiles == true ]; then
+  if [ ! -d "$DOTFILES" ]; then
+    printf "\n\n*****\n\nSetting up dotfiles\n"
+    git clone https://github.com/matchbookmac/dotfiles.git "$DOTFILES"
+    #
+    printf "bash_profile\n"
+    current_bash=$(<~/.bash_profile)
+    rm -rf ~/.bash_profile
+    ln -s "$DOTFILES/.bash_profile" "$HOME/.bash_profile"
+    printf "\n\n# Existing bash_profile before import on $(date)\n\n$current_bash\n" >> ~/.bash_profile
+    #
+    printf "vimrc\n"
+    ln -s "$DOTFILES/.vimrc" "$HOME/.vimrc"
+    #
+    printf "gitconfig\n"
+    ln -s "$DOTFILES/.gitconfig" "$HOME/.gitconfig"
+    #
+    printf "railsrc\n"
+    echo "-d postgresql -T" >> ~/.railsrc
+    #
+    printf "gemrc\n\n*****\n"
+    echo "gem: --no-ri --no-rdoc" >> ~/.gemrc
+  else
+    printf "$DOTFILES already exists, will not overwrite\n"
+  fi
 fi
 
-echo ''
-echo "Linking scaffolds and scripts"
-chmod +x "$SETUPFILES/jsscaffold.sh"
-chmod +x "$SETUPFILES/railsscaffold.sh"
-chmod +x "$SETUPFILES/sinatra_ruby.sh"
-chmod +x "$SETUPFILES/git_create_repo.sh"
-chmod +x "$SETUPFILES/ec2clone.sh"
+function install_hb ()
+{
+  printf "Installing homebrew\n"
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+}
 
-echo ''
-echo "Setup complete"
-echo ''
+function install_jq ()
+{
+  printf "Installing jq (JSON parsing on command line)\n"
+  brew install jq
+}
+
+printf "\n*****\n\nDo you want to install atom editor?\n"
+prompt
+intstall_atom=$choice
+
+if [ $intstall_atom == true ]; then
+  printf "Installing atom requires Homebrew and jq, do you wish to install those?\n"
+  prompt
+  install_hb_jq=$choice
+  if [ $install_hb_jq == true ]; then
+    install_hb
+    install_jq
+    printf "Installing atom\n"
+    curl https://api.github.com/repos/atom/atom/releases/latest | jq '.assets[] | {name: .name, link: .browser_download_url} | select(.name == "atom-mac.zip").link' | xargs wget -P ~/Downloads
+    unzip ~/Downloads/atom-mac.zip -d /Applications/
+    rm ~/Downloads/atom-mac.zip
+    printf "\n*****\n"
+  fi
+else
+  printf "\n*****\n\nDo you want to install Homebrew?\n"
+  prompt
+  intstall_homebrew=$choice
+  if [ $intstall_homebrew == true ]; then
+    install_hb
+    printf "\n*****\n\n"
+  fi
+  #
+  printf "\n*****\n\nDo you want to install jq (command line JSON parsing)?\n"
+  prompt
+  intstall_json=$choice
+  if [ $intstall_json == true ]; then
+    install_jq
+    printf "\n*****\n\n"
+  fi
+fi
+
+for i in $SETUPFILES/*.sh; do
+  chmod +x $i
+done
+
+printf "\nSetup complete\n\n************\n\n"
 
 exit 1
