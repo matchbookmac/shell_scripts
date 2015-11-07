@@ -45,6 +45,7 @@ if [ $apm_installed == true ]; then
       apm install minimap
       apm install linter
       apm install linter-jshint
+      apm install dash
 
       printf "Adding personal config files\n"
       rm -rf "$HOME/.atom/config.cson"
