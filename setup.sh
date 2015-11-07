@@ -107,6 +107,13 @@ else
   fi
 fi
 
+printf "\n*****\n\nDo you want to configure atom with packages from this repo?\n"
+prompt
+atom_pkg=$choice
+if [ $atom_pkg == true ]; then
+  ln -s "$DOTFILES/.atom" "$HOME/.atom"
+fi
+
 for i in $SETUPFILES/*.sh; do
   chmod +x $i
 done
