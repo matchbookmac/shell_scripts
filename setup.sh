@@ -37,27 +37,33 @@ if [ $link_dotfiles == true ]; then
   if [ ! -d "$DOTFILES" ]; then
     printf "\n\n*****\n\nSetting up dotfiles\n"
     git clone https://github.com/matchbookmac/dotfiles.git "$DOTFILES"
-    #
-    printf "bash_profile\n"
-    current_bash=$(<~/.bash_profile)
-    rm -rf ~/.bash_profile
-    ln -s "$DOTFILES/.bash_profile" "$HOME/.bash_profile"
-    printf "\n\n# Existing bash_profile before import on $(date)\n\n$current_bash\n" >> ~/.bash_profile
-    #
-    printf "vimrc\n"
-    ln -s "$DOTFILES/.vimrc" "$HOME/.vimrc"
-    #
-    printf "gitconfig\n"
-    ln -s "$DOTFILES/.gitconfig" "$HOME/.gitconfig"
-    #
-    printf "railsrc\n"
-    echo "-d postgresql -T" >> ~/.railsrc
-    #
-    printf "gemrc\n\n*****\n"
-    echo "gem: --no-ri --no-rdoc" >> ~/.gemrc
   else
     printf "$DOTFILES already exists, will not overwrite\n"
   fi
+  #
+  printf "bash_profile\n"
+  current_bash=$(<~/.bash_profile)
+  rm -rf ~/.bash_profile
+  ln -s "$DOTFILES/.bash_profile" "$HOME/.bash_profile"
+  printf "\n\n# Existing bash_profile before import on $(date)\n\n$current_bash\n" >> ~/.bash_profile
+  #
+  printf "vimrc\n"
+  rm -rf ~/.vimrc
+  ln -s "$DOTFILES/.vimrc" "$HOME/.vimrc"
+  #
+  printf "gitconfig\n"
+  rm -rf ~/.gitconfig
+  ln -s "$DOTFILES/git_configuration" "$HOME/.gitconfig"
+  #
+  printf "gitignore_global\n"
+  rm -rf ~/.gitconfig
+  ln -s "$DOTFILES/.gitignore_global" "$HOME/.gitignore_global"
+  #
+  printf "railsrc\n"
+  echo "-d postgresql -T" >> ~/.railsrc
+  #
+  printf "gemrc\n\n*****\n"
+  echo "gem: --no-ri --no-rdoc" >> ~/.gemrc
 fi
 
 function install_hb ()
